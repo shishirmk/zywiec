@@ -1,4 +1,4 @@
-zyweic
+zywiec
 ======
 
-Zyweic - Time series segmentation playground
+Zywiec - Time series segmentation playground
