@@ -1,7 +1,7 @@
 $(document).ready( function() {
     function getSegmentedData(final_result){
         var segmentedData = [];
-        var count = 0
+        var count = 0;
         for (var i in final_result){
             if (count == 0){
                 segmentedData.push({
@@ -34,7 +34,7 @@ $(document).ready( function() {
         } );
         inputArray.push(val);
     }
-    var final_result = top_down(inputArray);
+    var final_result = start_top_down(inputArray);
     var segmentedData = getSegmentedData(final_result);
     var seriesArray = [
             {
@@ -63,11 +63,15 @@ $(document).ready( function() {
     } );
     var xAxis = new Rickshaw.Graph.Axis.X( {
         graph: graph,
-        format: Rickshaw.Fixtures.Number.formatKMBT
+        tickFormat: function(x){
+            return x.toFixed(2)
+        }
     } );
     var yAxis = new Rickshaw.Graph.Axis.Y( {
         graph: graph,
-        format: Rickshaw.Fixtures.Number.formatKMBT
+        tickFormat: function(x){
+            return x.toFixed(2)
+        }
     } );
     graph.render();
     $("#segment_button").click( function(e) {
@@ -76,15 +80,15 @@ $(document).ready( function() {
         var inputArray = $.parseJSON($("#array_input").val());
         var inputSeries = [];
         var inputY = [];
-        for(var i in inputArray){
+        for(var i=0; i<inputArray.length; i++){
             inputSeries.push({
-                x: inputArray[i][0],
-                y: inputArray[i][1]
+                x: i,
+                y: inputArray[i]
             })
-            inputY.push(inputArray[i][1])
+            inputY.push(inputArray[i])
         }
-        var new_final_result = top_down(inputY);
-        console.log(top_down(inputY))
+        var new_final_result = start_top_down(inputY);
+        console.log(new_final_result)
         var newSegmentedData = getSegmentedData(new_final_result);
         seriesArray[0].data = inputSeries;
         seriesArray[1].data = newSegmentedData;

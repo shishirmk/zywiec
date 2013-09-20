@@ -43,8 +43,14 @@ function standard_deviation(input_array) {
 
 var max_error;
 var final_result = [];
+function start_top_down(input_array) {
+	final_result = [];
+	max_error = undefined;
+	return top_down(input_array)
+}
 
 function top_down(input_array){
+
 	if (max_error == undefined){
 		max_error = 0.50*standard_deviation(input_array);
 	}
